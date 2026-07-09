@@ -181,6 +181,15 @@
     width:min(220px,52vw);
     height:auto;
   }
+  /* Tint a light/white property logo so it reads on the light page.
+     Recolors the logo's alpha shape to the brand dark-blue via mask.
+     Only apply .logo-tint when the source logo would otherwise blend in. */
+  .logo-tint{
+    aspect-ratio:2560 / 1508;
+    background-color:var(--bw-dark-blue);
+    -webkit-mask:var(--logo-src) no-repeat center / contain;
+    mask:var(--logo-src) no-repeat center / contain;
+  }
   .eyebrow{
     font-family:var(--sans);font-size:11px;letter-spacing:.18em;
     text-transform:uppercase;color:var(--bw-blue);font-weight:800;margin-bottom:20px;
@@ -487,6 +496,46 @@
   }
   .market-stat span{display:block;color:var(--ink-2);font-size:13px}
 
+  .econ-headline{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:36px 0 8px}
+  .econ-metric{
+    background:var(--bw-white);border:1px solid var(--rule);
+    border-top:5px solid var(--bw-blue);padding:34px;
+    box-shadow:0 18px 40px rgba(11,42,67,.07);
+  }
+  .econ-metric.green{border-top-color:var(--bw-green)}
+  .econ-metric .kicker{
+    color:var(--muted);font-size:11px;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
+  }
+  .econ-metric .giant{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(52px,7vw,84px);line-height:.92;
+    color:var(--bw-blue);letter-spacing:-.01em;
+  }
+  .econ-metric.green .giant{color:var(--bw-green)}
+  .econ-metric .giant .unit{font-size:.38em;color:var(--muted);font-weight:800;margin-left:8px}
+  .econ-metric p{font-size:14px;margin:18px 0 0;max-width:none;color:var(--ink-2)}
+  .econ-detail{margin-top:20px}
+  .stack-bar{
+    display:flex;height:48px;border-radius:6px;overflow:hidden;
+    margin:18px 0 14px;border:1px solid var(--rule);
+  }
+  .stack-seg{display:flex;align-items:center;padding:0 14px;min-width:0}
+  .stack-seg span{
+    font-size:11px;font-weight:800;color:var(--bw-white);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em;
+  }
+  .stack-seg.vacancy{background:var(--bw-blue)}
+  .stack-seg.charging{background:var(--bw-green)}
+  .stack-seg.charging span{color:var(--bw-dark-blue)}
+  .stack-legend{display:flex;gap:22px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);font-weight:600}
+  .stack-legend i.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:middle}
+  .stack-legend i.sw.vacancy{background:var(--bw-blue)}
+  .stack-legend i.sw.charging{background:var(--bw-green)}
+  .stack-total{margin-top:16px;font-size:14px;color:var(--ink-2)}
+  .stack-total strong{font-family:var(--display);font-size:20px;color:var(--bw-dark-blue)}
+  .input-list{margin-top:12px}
+
   .rec{
     background:var(--bw-dark-blue);color:var(--bw-white);
     padding:60px;margin-top:40px;
@@ -539,7 +588,7 @@
     .stat-grid{grid-template-columns:repeat(2,1fr)}
     .stat:nth-child(2){border-right:none}
     .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--rule)}
-    .two-col,.three-col,.voices,.rec-steps,.market-grid{grid-template-columns:1fr}
+    .two-col,.three-col,.voices,.rec-steps,.market-grid,.econ-headline{grid-template-columns:1fr}
     .rec-step{grid-template-columns:1fr;gap:4px}
     nav ul{display:none}
     nav .brand-logo{width:156px}
@@ -595,10 +644,14 @@
     .stat .num .unit{font-size:16pt}
     .two-col,.three-col{gap:20pt;margin-top:26pt;break-inside:auto;page-break-inside:auto}
     .three-col,.signal-card,.usage-graphic,.data-note,.incentive-panel,.market-callout,.model-card,.insight-card,
-    .program-point,.market-stat,.model-metric,.assumption-row,.rec-step,.question-cta,.pullquote{
+    .program-point,.market-stat,.model-metric,.assumption-row,.rec-step,.question-cta,.pullquote,
+    .econ-metric,.stack-bar{
       break-inside:avoid;
       page-break-inside:avoid;
     }
+    .econ-headline{gap:20pt;margin:24pt 0 6pt;break-inside:avoid;page-break-inside:avoid}
+    .econ-metric{box-shadow:none;padding:20pt}
+    .econ-metric .giant{font-size:44pt}
     .bar-chart{break-inside:avoid;page-break-inside:avoid}
     .bar-row{grid-template-columns:95pt 1fr 34pt}
     .voices{gap:10pt;break-inside:auto;page-break-inside:auto}
@@ -665,14 +718,14 @@
 <header class="hero">
   <div class="prepared-for">
     <div class="label">Prepared for:</div>
-    <img class="aperture-logo" src="branding-info/slate-at-noma-logo.png" alt="Slate at NoMa">
+    <span class="aperture-logo logo-tint" role="img" aria-label="Slate at NoMa" style="--logo-src:url('branding-info/slate-at-noma-logo.png')"></span>
   </div>
   <h1><em>Slate</em> residents want EV charging <span class="blue-word">on site</span>.</h1>
   <div class="meta-row">
     <div>Prepared by<span>Blue Whale EV</span></div>
     <div>Sample<span>8 responses</span></div>
     <div>Property<span><a href="https://www.slateatnoma.com/">Slate at NoMa</a></span></div>
-    <div>Method<span>Google Forms survey, June-July 2026</span></div>
+    <div>Method<span><a href="https://docs.google.com/spreadsheets/d/1gHhEH6PU25TDGnM0YDn18oQdJqSrLUI6ExsyLsgmVhE/edit?usp=sharing">Google Forms survey, June-July 2026</a></span></div>
   </div>
 </header>
 
@@ -711,11 +764,11 @@
     </div>
     <div>
       <h3>How often would residents use on-site chargers?</h3>
-      <div class="usage-graphic" aria-label="Every respondent expects to charge at least a few times a week.">
+      <div class="bar-chart" id="frequency-chart"></div>
+      <div class="usage-graphic" style="margin:12px 0 0" aria-label="Every respondent expects to charge at least a few times a week.">
         <div class="headline">Every respondent expects to charge at least a few times a week.</div>
         <div class="usage-note">Weekly-plus demand runs ahead of the 3 current EV owners because most residents answered for how they would charge once they switch, and 88% say their next car is likely electric.</div>
       </div>
-      <div class="bar-chart" id="frequency-chart"></div>
     </div>
   </div>
 </section>
@@ -784,104 +837,49 @@
 
 <section id="economics">
   <div class="section-label">05 / Program Economics</div>
-  <h2>A modest 4-port build, <em>two</em> ways to read it.</h2>
-  <p class="lead">The numbers below come straight from Blue Whale EV's charger-profitability and asset-value calculators, run on the 4-port scenario. Treat every figure as directional until a firm quote and confirmed property financials are locked.</p>
+  <h2>The whole build in <em>two</em> numbers.</h2>
+  <p class="lead">One set of inputs feeds both of Blue Whale EV's models. What ownership needs from them is short: how fast the chargers pay for themselves, and how much value the amenity adds to the asset.</p>
 
-  <div class="incentive-panel green-top">
-    <div class="panel-head">
-      <span class="panel-tag">Panel A</span>
-      <h3 style="margin-bottom:0">Charger profitability (self-funded)</h3>
-      <span class="tentative-tag">Directional</span>
+  <div class="econ-headline">
+    <div class="econ-metric green">
+      <div class="kicker">Payback Period</div>
+      <div class="giant">~3.5<span class="unit">years</span></div>
+      <p>A roughly $40,000 build, recovered from charging margin at about $11,563 a year. Drivers pay per kWh, so it funds itself with no subsidy from non-EV residents.</p>
     </div>
-    <p class="model-sub" style="margin-top:6px">Drivers pay per kWh, so the chargers fund themselves, with no subsidy from non-EV residents.</p>
-    <div class="incentive-grid" style="margin-top:20px">
-      <div>
-        <h3>Calculator assumptions</h3>
-        <div style="margin-top:12px">
-          <div class="assumption-row tentative"><span>Hardware</span><strong>Tesla Universal Wall Connector, 6.6 kW</strong></div>
-          <div class="assumption-row tentative"><span>Charging spaces</span><strong>4</strong></div>
-          <div class="assumption-row tentative"><span>Installed cost / space</span><strong>$3,041</strong></div>
-          <div class="assumption-row tentative"><span>Utility rebates</span><strong>$0 (none available in DC)</strong></div>
-          <div class="assumption-row tentative"><span>Electricity cost</span><strong>$0.15 / kWh</strong></div>
-          <div class="assumption-row tentative"><span>Driver price</span><strong>$0.30 / kWh</strong></div>
-          <div class="assumption-row tentative"><span>Utilization</span><strong>2 sessions / space / day · 4-hr</strong></div>
-          <div class="assumption-row tentative"><span>Annual energy sold</span><strong>77,088 kWh</strong></div>
-          <div class="assumption-row tentative"><span>Annual gross revenue</span><strong>$23,126</strong></div>
-          <div class="assumption-row tentative"><span>Annual electricity cost</span><strong>$11,563</strong></div>
-          <div class="assumption-row tentative"><span>Per session</span><strong>~26.4 kWh · ~92 mi</strong></div>
-        </div>
-      </div>
-      <div class="model-card">
-        <h3>What the model returns</h3>
-        <p class="model-sub">4-port scenario, calculator defaults</p>
-        <div class="model-metrics">
-          <div class="model-metric">
-            <div class="value">$12,164<sup>*</sup></div>
-            <div class="label">Net Initial Investment</div>
-          </div>
-          <div class="model-metric">
-            <div class="value positive">$11,563<sup>*</sup></div>
-            <div class="label">Annual Net Revenue</div>
-          </div>
-          <div class="model-metric">
-            <div class="value">~1.05 yr<sup>*</sup></div>
-            <div class="label">Est. Payback Period</div>
-          </div>
-          <div class="model-metric">
-            <div class="value positive">~95%<sup>*</sup></div>
-            <div class="label">Est. Annual ROI</div>
-          </div>
-        </div>
-        <p class="source-note">* Calculator output on default assumptions. Final economics require a firm Blue Whale EV quote once charger type, count, and site design are set.</p>
-      </div>
+    <div class="econ-metric">
+      <div class="kicker">Asset Value Created</div>
+      <div class="giant">~$1.36<span class="unit">million</span></div>
+      <p>$74,719 a year of added net operating income, capitalized at a 5.5% cap rate. Most of it is retention, not charging profit.</p>
     </div>
   </div>
 
-  <div class="incentive-panel">
-    <div class="panel-head">
-      <span class="panel-tag">Panel B</span>
-      <h3 style="margin-bottom:0">Asset value uplift (the ownership headline)</h3>
-      <span class="tentative-tag">Directional</span>
+  <div class="two-col econ-detail">
+    <div>
+      <h3>Where the value comes from</h3>
+      <p>Charging turns a small profit. The number that moves the asset is retention: on a 438-unit rent roll, a 0.4% vacancy improvement is worth far more than the chargers earn. That tracks the survey's 75% retention signal.</p>
+      <div class="stack-bar" aria-label="Annual NOI uplift is about 85% vacancy savings and 15% charging income.">
+        <div class="stack-seg vacancy" style="width:84.5%"><span>Vacancy savings · $63,156</span></div>
+        <div class="stack-seg charging" style="width:15.5%"><span>$11,563</span></div>
+      </div>
+      <div class="stack-legend">
+        <div><i class="sw vacancy"></i>Retention / vacancy savings (0.4%)</div>
+        <div><i class="sw charging"></i>Charging net income</div>
+      </div>
+      <div class="stack-total">Total annual NOI uplift <strong>$74,719</strong></div>
     </div>
-    <p class="model-sub" style="margin-top:6px">The value here comes less from charging profit than from what a stickier, better-retained rent roll is worth at a 5.5% cap.</p>
-    <div class="incentive-grid" style="margin-top:20px">
-      <div>
-        <h3>Inputs &amp; build-up</h3>
-        <div style="margin-top:12px">
-          <div class="assumption-row"><span>Units</span><strong>438</strong></div>
-          <div class="assumption-row tentative"><span>Avg monthly rent</span><strong>$3,004</strong></div>
-          <div class="assumption-row"><span>Cap rate</span><strong>5.5%</strong></div>
-          <div class="assumption-row"><span>Chargers</span><strong>4</strong></div>
-          <div class="assumption-row"><span>Charger net cash flow</span><strong>$11,563 / yr · $240.90 / charger / mo</strong></div>
-          <div class="assumption-row tentative"><span>Vacancy improvement</span><strong>0.4%</strong></div>
-          <div class="assumption-row"><span>A) Charger net income</span><strong>$11,563 / yr</strong></div>
-          <div class="assumption-row"><span>B) Vacancy savings (0.4%)</span><strong>$63,156 / yr</strong></div>
-          <div class="assumption-row"><span>Total annual NOI uplift</span><strong>$74,719 / yr</strong></div>
-        </div>
+    <div>
+      <h3>The one input set behind both</h3>
+      <div class="input-list">
+        <div class="assumption-row tentative"><span>Ports</span><strong>4 × Tesla Universal Wall Connector (6.6 kW)</strong></div>
+        <div class="assumption-row tentative"><span>Total project cost</span><strong>$40,000</strong></div>
+        <div class="assumption-row tentative"><span>Driver price / electricity</span><strong>$0.30 / $0.15 per kWh</strong></div>
+        <div class="assumption-row tentative"><span>Utilization</span><strong>2 sessions / space / day · 4-hr</strong></div>
+        <div class="assumption-row"><span>Property</span><strong>438 units · $3,004 avg rent</strong></div>
+        <div class="assumption-row"><span>Cap rate</span><strong>5.5%</strong></div>
+        <div class="assumption-row tentative"><span>Vacancy improvement</span><strong>0.4%</strong></div>
+        <div class="assumption-row"><span>Annual charging net</span><strong>$11,563</strong></div>
       </div>
-      <div class="model-card">
-        <h3>What the model returns</h3>
-        <p class="model-sub">NOI uplift capitalized at 5.5%</p>
-        <div class="model-metrics">
-          <div class="model-metric">
-            <div class="value">$15.79M<sup>*</sup></div>
-            <div class="label">Annual Rent Roll</div>
-          </div>
-          <div class="model-metric">
-            <div class="value positive">$74,719<sup>*</sup></div>
-            <div class="label">Total Annual NOI Uplift</div>
-          </div>
-          <div class="model-metric">
-            <div class="value positive">~$1.36M<sup>*</sup></div>
-            <div class="label">Asset Value Created</div>
-          </div>
-          <div class="model-metric">
-            <div class="value">5.5%</div>
-            <div class="label">Cap Rate Applied</div>
-          </div>
-        </div>
-        <p class="source-note">* A modest 4-port amenity can create north of $1.3M in asset value, and most of it comes from retention (vacancy). That lines up with the survey's 75% retention signal. The 0.4% vacancy assumption and the $3,004 unweighted-average rent are directional.</p>
-      </div>
+      <p class="source-note">* Starred inputs are directional placeholders. The $40,000 total cost stands in until Blue Whale EV issues a firm quote for the confirmed charger type, count, and site design.</p>
     </div>
   </div>
 
@@ -910,7 +908,7 @@
 
   <div class="data-note">
     <h4>Numbers are directional</h4>
-    <p>All economics above are early estimates from calculator defaults. Refresh them with a firm Blue Whale EV quote and confirmed property financials before ownership makes a decision.</p>
+    <p>These are early estimates. The $40,000 build cost is a placeholder until Blue Whale EV issues a firm quote; refresh it and the property financials before ownership makes a decision.</p>
   </div>
 </section>
 
